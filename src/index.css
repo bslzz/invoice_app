@@ -1,6 +1,20 @@
 body {
   background-color: #f1f1f1;
 }
+label {
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+  color: #1d1d1d;
+}
+
+input,
+textarea {
+  background-color: #f1f1f1;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.2rem;
+  margin-bottom: 2rem;
+  color: #1d1d1d;
+}
 
 button {
   user-select: none;

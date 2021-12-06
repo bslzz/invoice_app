@@ -12,4 +12,7 @@ export interface IInvoiceInfo {
   invoice_date?: string
   due_date?: string
   notes?: string
+  description?: string
+  quantity?: string | any
+  price?: string | any
 }

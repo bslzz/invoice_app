@@ -25,7 +25,10 @@ const App = () => {
     invoice_number: '',
     invoice_date: '',
     due_date: '',
-    notes: ''
+    notes: '',
+    description: '',
+    quantity: '',
+    price: ''
   })
 
   const {
@@ -41,32 +44,37 @@ const App = () => {
     invoice_number,
     invoice_date,
     due_date,
-    notes
+    notes,
+    description,
+    quantity,
+    price
   }: IInvoiceInfo = invoiceInfo
 
   const editInvoiceInfo = (e: MouseEvent<HTMLButtonElement>) => {
     setShowInvoice(false)
   }
+
+  const amount: number = quantity * price
   return (
     <main className='m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow'>
       {showInvoice ? (
         <div>
           <Header />
-
           <MainDetails name={name} address={address} />
-
           <ClientDetails name={client_name} address={client_address} />
-
           <Dates
             invoice_number={invoice_number}
             invoice_date={invoice_date}
             due_date={due_date}
           />
-
-          <InvoiceTable />
+          <InvoiceTable
+            description={description}
+            quantity={quantity}
+            price={price}
+            amount={amount}
+          />
 
           <Notes notes={notes} />
-
           <Footer
             name={name}
             email={email}
@@ -87,6 +95,7 @@ const App = () => {
           setShowInvoice={setShowInvoice}
           invoiceInfo={invoiceInfo}
           setInvoiceInfo={setInvoiceInfo}
+          amount={amount}
         />
       )}
     </main>
