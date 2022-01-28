@@ -1,13 +1,22 @@
-import { IInvoiceInfo } from '../types'
+import { FC } from 'react'
 
-const Footer = ({
+interface Props {
+  name: string
+  email: string
+  website: string
+  phone: number
+  account_number: string
+  bank: string
+}
+
+const Footer: FC<Props> = ({
   name,
   email,
   website,
   phone,
   account_number,
   bank
-}: IInvoiceInfo) => {
+}) => {
   return (
     <footer className='footer border-t-2 border-gray-300 pt-5'>
       <ul className='flex flex-wrap items-center justify-center'>

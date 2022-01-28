@@ -47,7 +47,7 @@ const TableForm = ({
             name='amount'
             placeholder='Amount'
             value={amount}
-            disabled
+            disabled={true}
           />
         </div>
       </article>

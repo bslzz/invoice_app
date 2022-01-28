@@ -1,11 +1,13 @@
-import { IInvoiceInfo } from '../types'
+import { FC } from 'react'
 
-const InvoiceTable = ({
-  description,
-  quantity,
-  price,
-  amount
-}: IInvoiceInfo | any) => {
+interface Props {
+  description: string
+  quantity: number
+  price: number
+  amount: number
+}
+
+const InvoiceTable: FC<Props> = ({ description, quantity, price, amount }) => {
   return (
     <table width='100%'>
       <thead>

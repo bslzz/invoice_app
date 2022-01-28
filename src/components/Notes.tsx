@@ -1,6 +1,4 @@
-import { IInvoiceInfo } from '../types'
-
-const Notes = ({ notes }: IInvoiceInfo) => {
+const Notes = ({ notes }: { notes: string }) => {
   return (
     <section className='mt-10 mb-5'>
       {/* Textarea */}

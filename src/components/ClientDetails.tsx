@@ -1,6 +1,7 @@
-import { IInvoiceInfo } from '../types'
+import { FC } from 'react'
+import { IProps } from '../types'
 
-const ClientDetails = ({ name, address }: IInvoiceInfo) => {
+const ClientDetails: FC<IProps> = ({ name, address }) => {
   return (
     <section className='mt-5'>
       <h2 className='text-xl uppercase'>{name}</h2>

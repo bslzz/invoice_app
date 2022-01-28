@@ -1,13 +1,20 @@
-import { ChangeEvent, MouseEvent } from 'react'
+import { ChangeEvent, FC, MouseEvent } from 'react'
 import { IInvoiceInfo } from '../types'
 import TableForm from './TableForm'
 
-const InvoiceDetailsForm = ({
+interface Props {
+  setShowInvoice: React.Dispatch<React.SetStateAction<boolean>>
+  invoiceInfo: IInvoiceInfo
+  setInvoiceInfo: React.Dispatch<React.SetStateAction<IInvoiceInfo>>
+  amount: number
+}
+
+const InvoiceDetailsForm: FC<Props> = ({
   setShowInvoice,
   invoiceInfo,
   setInvoiceInfo,
   amount
-}: any) => {
+}) => {
   const {
     name,
     address,

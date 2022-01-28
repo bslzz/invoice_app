@@ -12,24 +12,9 @@ import { IInvoiceInfo } from './types'
 const App = () => {
   const [showInvoice, setShowInvoice] = useState(false)
 
-  const [invoiceInfo, setInvoiceInfo] = useState<IInvoiceInfo>({
-    name: '',
-    address: '',
-    email: '',
-    phone: '',
-    bank: '',
-    account_number: '',
-    website: '',
-    client_name: '',
-    client_address: '',
-    invoice_number: '',
-    invoice_date: '',
-    due_date: '',
-    notes: '',
-    description: '',
-    quantity: '',
-    price: ''
-  })
+  const [invoiceInfo, setInvoiceInfo] = useState<IInvoiceInfo>(
+    {} as IInvoiceInfo
+  )
 
   const {
     name,

@@ -1,6 +1,7 @@
-import { IInvoiceInfo } from '../types'
+import { FC } from 'react'
+import { IDates } from '../types'
 
-const Dates = ({ invoice_number, invoice_date, due_date }: IInvoiceInfo) => {
+const Dates: FC<IDates> = ({ invoice_number, invoice_date, due_date }) => {
   return (
     <article className='my-5 flex items-end justify-end'>
       <ul>
