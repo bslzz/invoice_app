@@ -118,7 +118,7 @@ const InvoiceDetailsForm: FC<Props> = ({
         <div className='flex flex-col'>
           <label htmlFor='account_number'>Enter your account number</label>
           <input
-            type='number'
+            type='text'
             name='account_number'
             placeholder='Enter your account_number'
             value={account_number}

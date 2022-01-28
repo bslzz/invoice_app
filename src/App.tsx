@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ClientDetails from './components/ClientDetails'
 import Dates from './components/Dates'
 import Header from './components/Header'
@@ -15,6 +15,7 @@ const App = () => {
   const [invoiceInfo, setInvoiceInfo] = useState<IInvoiceInfo>(
     {} as IInvoiceInfo
   )
+  const [amount, setAmount] = useState<number>(0)
 
   const {
     name,
@@ -38,8 +39,9 @@ const App = () => {
   const editInvoiceInfo = (e: MouseEventType) => {
     setShowInvoice(false)
   }
-
-  const amount: number = quantity * price || 0
+  useEffect(() => {
+    setAmount(quantity * price)
+  }, [quantity, price])
 
   return (
     <main className='m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow'>

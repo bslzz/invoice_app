@@ -3,6 +3,7 @@ import { IDates } from '../types'
 
 const Dates: FC<IDates> = ({ invoice_number, invoice_date, due_date }) => {
   const convertDate = (val: string) =>
+    val &&
     new Intl.DateTimeFormat('fi-FI', {
       year: 'numeric',
       month: '2-digit',
