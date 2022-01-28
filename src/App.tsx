@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import ClientDetails from './components/ClientDetails'
 import Dates from './components/Dates'
 import Header from './components/Header'
@@ -7,7 +7,7 @@ import InvoiceTable from './components/InvoiceTable'
 import Notes from './components/Notes'
 import Footer from './components/Footer'
 import InvoiceDetailsForm from './components/InvoiceDetailsForm'
-import { IInvoiceInfo } from './types'
+import { IInvoiceInfo, MouseEventType } from './types'
 
 const App = () => {
   const [showInvoice, setShowInvoice] = useState(false)
@@ -35,11 +35,12 @@ const App = () => {
     price
   }: IInvoiceInfo = invoiceInfo
 
-  const editInvoiceInfo = (e: MouseEvent<HTMLButtonElement>) => {
+  const editInvoiceInfo = (e: MouseEventType) => {
     setShowInvoice(false)
   }
 
-  const amount: number = quantity * price
+  const amount: number = quantity * price || 0
+
   return (
     <main className='m-5 p-5 md:max-w-xl md:mx-auto lg:max-w-2xl xl:max-w-4xl bg-white rounded shadow'>
       {showInvoice ? (

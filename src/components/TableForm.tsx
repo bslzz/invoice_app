@@ -1,10 +1,21 @@
-const TableForm = ({
+import { FC } from 'react'
+import { ChangeEventType } from '../types'
+
+interface Props {
+  description: string
+  quantity: number
+  price: number
+  amount: number | null
+  invoiceInfoChangeHandler: (e: ChangeEventType) => void
+}
+
+const TableForm: FC<Props> = ({
   description,
   quantity,
   price,
   amount,
   invoiceInfoChangeHandler
-}: any) => {
+}) => {
   return (
     <>
       <article className='md:mt-16'>
@@ -42,13 +53,9 @@ const TableForm = ({
         </div>
         <div className='flex flex-col'>
           <label htmlFor='amount'>Amount</label>
-          <input
-            type='number'
-            name='amount'
-            placeholder='Amount'
-            value={amount}
-            disabled={true}
-          />
+          <p className={amount ? 'p-1 bg-gray-100' : 'p-4 bg-gray-100'}>
+            {amount ? amount.toFixed(2) : null}
+          </p>
         </div>
       </article>
     </>

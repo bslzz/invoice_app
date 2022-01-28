@@ -4,7 +4,7 @@ interface Props {
   description: string
   quantity: number
   price: number
-  amount: number
+  amount: number | null
 }
 
 const InvoiceTable: FC<Props> = ({ description, quantity, price, amount }) => {
@@ -23,7 +23,7 @@ const InvoiceTable: FC<Props> = ({ description, quantity, price, amount }) => {
           <td>{description}</td>
           <td>{quantity}</td>
           <td>{price}</td>
-          <td>{amount}</td>
+          <td>{amount ? amount.toFixed(2) : null}</td>
         </tr>
       </tbody>
     </table>

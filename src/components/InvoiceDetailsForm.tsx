@@ -1,5 +1,5 @@
-import { ChangeEvent, FC, MouseEvent } from 'react'
-import { IInvoiceInfo } from '../types'
+import { FC } from 'react'
+import { ChangeEventType, IInvoiceInfo, MouseEventType } from '../types'
 import TableForm from './TableForm'
 
 interface Props {
@@ -34,14 +34,12 @@ const InvoiceDetailsForm: FC<Props> = ({
     price
   }: IInvoiceInfo = invoiceInfo
 
-  const invoiceInfoChangeHandler = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const invoiceInfoChangeHandler = (e: ChangeEventType) => {
     const { name, value } = e.target
     setInvoiceInfo({ ...invoiceInfo, [name]: value })
   }
 
-  const previewInvoice = (e: MouseEvent<HTMLButtonElement>) => {
+  const previewInvoice = (e: MouseEventType) => {
     setShowInvoice(true)
   }
   return (

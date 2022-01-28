@@ -1,3 +1,5 @@
+import { ChangeEvent, MouseEvent } from 'react'
+
 export interface IInvoiceInfo {
   name: string
   address: string
@@ -27,3 +29,9 @@ export interface IDates {
   invoice_date: string
   due_date: string
 }
+
+export type ChangeEventType = ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement
+>
+
+export type MouseEventType = MouseEvent<HTMLButtonElement>
