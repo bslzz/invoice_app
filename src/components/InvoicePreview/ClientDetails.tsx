@@ -1,7 +1,9 @@
 import { FC } from 'react'
-import { IProps } from '../../helpers/types'
+import { useAppSelector } from '../../redux/hooks'
 
-const ClientDetails: FC<IProps> = ({ name, address }) => {
+const ClientDetails: FC = () => {
+  const { name, address } = useAppSelector((state) => state.invoiceForm.data)
+
   return (
     <section className='mt-5'>
       <h2 className='text-xl uppercase'>{name}</h2>

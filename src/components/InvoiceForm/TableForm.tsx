@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { ChangeEventType } from '../../helpers/types'
 
@@ -7,7 +7,7 @@ interface Props {
   quantity: number
   price: number
   amount: number | null
-  invoiceInfoChangeHandler: (e: ChangeEventType) => void
+  changeHandler: (e: ChangeEventType) => void
 }
 
 interface Ilists {
@@ -23,13 +23,11 @@ const TableForm: FC<Props> = ({
   quantity,
   price,
   amount,
-  invoiceInfoChangeHandler
+  changeHandler
 }) => {
   const [list, setList] = useState<Ilists[]>([])
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
+  const submitForm = useCallback(() => {
     const newItems = {
       id: uuidv4(),
       description,
@@ -39,12 +37,12 @@ const TableForm: FC<Props> = ({
     }
 
     setList([...list, newItems])
-  }
+  }, [description, quantity, price, amount, list])
 
   console.log('list', list)
 
   return (
-    <form onSubmit={submitForm}>
+    <div>
       <article className='md:mt-16'>
         <div className='flex flex-col'>
           <label htmlFor='description'>Description</label>
@@ -53,7 +51,7 @@ const TableForm: FC<Props> = ({
             name='description'
             placeholder='Description'
             value={description}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
       </article>
@@ -65,7 +63,7 @@ const TableForm: FC<Props> = ({
             name='quantity'
             placeholder='Quantity'
             value={quantity}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
         <div className='flex flex-col'>
@@ -75,7 +73,7 @@ const TableForm: FC<Props> = ({
             name='price'
             placeholder='Price'
             value={price}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
         <div className='flex flex-col'>
@@ -88,10 +86,11 @@ const TableForm: FC<Props> = ({
       <button
         className='mb-5 bg-blue-500 text-white font-bold py-2 px-8 rounded-shadow border-2 border-blue-500 rounded hover:bg-transparent hover:text-blue-500 transition-all duration-300'
         type='submit'
+        onSubmit={submitForm}
       >
         Add New Item
       </button>
-    </form>
+    </div>
   )
 }
 

@@ -1,8 +1,11 @@
 import { FC } from 'react'
-import { IDates } from '../../helpers/types'
+import { useAppSelector } from '../../redux/hooks'
 import { convertDate } from '../../utils/date.utils'
 
-const Dates: FC<IDates> = ({ invoice_number, invoice_date, due_date }) => {
+const Dates: FC = () => {
+  const { invoice_number, invoice_date, due_date } = useAppSelector(
+    (state) => state.invoiceForm.data
+  )
   return (
     <article className='my-5 flex items-end justify-end'>
       <ul>

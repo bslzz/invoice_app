@@ -1,13 +1,10 @@
 import { FC } from 'react'
+import { useAppSelector } from '../../redux/hooks'
 
-interface Props {
-  description: string
-  quantity: number
-  price: number
-  amount: number | null
-}
-
-const InvoiceTable: FC<Props> = ({ description, quantity, price, amount }) => {
+const InvoiceTable: FC = () => {
+  const { description, quantity, price, amount } = useAppSelector(
+    (state) => state.invoiceForm.data
+  )
   return (
     <table width='100%'>
       <thead>

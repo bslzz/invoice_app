@@ -1,4 +1,7 @@
-const Notes = ({ notes }: { notes: string }) => {
+import { useAppSelector } from '../../redux/hooks'
+
+const Notes = () => {
+  const { notes } = useAppSelector((state) => state.invoiceForm.data)
   return (
     <section className='mt-10 mb-5'>
       {/* Textarea */}

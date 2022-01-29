@@ -1,25 +1,20 @@
 import { FC } from 'react'
-import {
-  ChangeEventType,
-  IInvoiceInfo,
-  MouseEventType
-} from '../../helpers/types'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { IFormValues } from '../../helpers/types'
+import { invoiceFormValues } from '../../redux/features/invoiceForm/invoiceForm.slice'
+import { useAppDispatch } from '../../redux/hooks'
+import { useFormValues } from '../../utils/useFormHooks'
 
 import TableForm from './TableForm'
 
 interface Props {
   setShowInvoice: React.Dispatch<React.SetStateAction<boolean>>
-  invoiceInfo: IInvoiceInfo
-  setInvoiceInfo: React.Dispatch<React.SetStateAction<IInvoiceInfo>>
-  amount: number
 }
 
-const InvoiceDetailsForm: FC<Props> = ({
-  setShowInvoice,
-  invoiceInfo,
-  setInvoiceInfo,
-  amount
-}) => {
+const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
+  const { values, changeHandler } = useFormValues<IFormValues>(
+    {} as IFormValues
+  )
   const {
     name,
     address,
@@ -36,39 +31,56 @@ const InvoiceDetailsForm: FC<Props> = ({
     notes,
     description,
     quantity,
-    price
-  }: IInvoiceInfo = invoiceInfo
+    price,
+    amount
+  }: IFormValues = values
 
-  const invoiceInfoChangeHandler = (e: ChangeEventType) => {
-    const { name, value } = e.target
-    setInvoiceInfo({ ...invoiceInfo, [name]: value })
+  const dispatch = useAppDispatch()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<IFormValues>()
+
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    if (data) {
+      dispatch(invoiceFormValues(data))
+      setShowInvoice(true)
+    }
   }
 
-  const previewInvoice = (e: MouseEventType) => {
-    setShowInvoice(true)
-  }
   return (
-    <div className='flex flex-col justify-center'>
+    <form
+      className='flex flex-col justify-center'
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <article className='md:grid grid-cols-2 gap-10'>
         <div className='flex flex-col'>
           <label htmlFor='name'>Enter your name</label>
+          {errors.name && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='name'
+            {...register('name', { required: true })}
             placeholder='Enter your name'
             value={name}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='address'>Enter your address</label>
+          {errors.address && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='address'
+            {...register('address', { required: true })}
             placeholder='Enter your address'
             value={address}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
       </article>
@@ -76,34 +88,43 @@ const InvoiceDetailsForm: FC<Props> = ({
       <article className='md:grid grid-cols-3 gap-10'>
         <div className='flex flex-col'>
           <label htmlFor='email'>Enter your email</label>
+          {errors.email && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='email'
-            name='email'
+            {...register('email', { required: true })}
             placeholder='Enter your email'
             value={email}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='website'>Enter your website</label>
+          {errors.website && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='url'
-            name='website'
+            {...register('website', { required: true })}
             placeholder='Enter your website'
             value={website}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='phone'>Enter your phone</label>
+          {errors.phone && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='tel'
-            name='phone'
+            {...register('phone', { required: true })}
             placeholder='Enter your phone number'
-            value={phone}
-            onChange={invoiceInfoChangeHandler}
+            value={phone as number}
+            onChange={changeHandler}
           />
         </div>
       </article>
@@ -111,23 +132,29 @@ const InvoiceDetailsForm: FC<Props> = ({
       <article className='md:grid grid-cols-2 gap-10'>
         <div className='flex flex-col'>
           <label htmlFor='bank'>Enter your bank</label>
+          {errors.bank && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='bank'
+            {...register('bank', { required: true })}
             placeholder='Enter your bank name'
             value={bank}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='account_number'>Enter your account number</label>
+          {errors.account_number && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='account_number'
+            {...register('account_number', { required: true })}
             placeholder='Enter your account_number'
             value={account_number}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
       </article>
@@ -135,22 +162,28 @@ const InvoiceDetailsForm: FC<Props> = ({
       <article className='md:grid grid-cols-2 gap-10 md:mt-20'>
         <div className='flex flex-col'>
           <label htmlFor='client_name'>Enter your client name</label>
+          {errors.client_name && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='client_name'
+            {...register('client_name', { required: true })}
             placeholder='Enter your client name'
             value={client_name}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
         <div className='flex flex-col'>
           <label htmlFor='client_address'>Enter your client address</label>
+          {errors.client_address && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='client_address'
+            {...register('client_address', { required: true })}
             placeholder='Enter your client address'
             value={client_address}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
       </article>
@@ -158,63 +191,74 @@ const InvoiceDetailsForm: FC<Props> = ({
       <article className='md:grid grid-cols-3 gap-10'>
         <div className='flex flex-col'>
           <label htmlFor='invoice_number'>Enter your invoice number</label>
+          {errors.invoice_number && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
-            type='number'
-            name='invoice_number'
+            {...register('invoice_number', { required: true })}
             placeholder='Enter your invoice number'
-            value={invoice_number}
-            onChange={invoiceInfoChangeHandler}
+            value={invoice_number as number}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='invoice_date'>Enter invoice date</label>
+          {errors.address && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='date'
-            name='invoice_date'
+            {...register('invoice_date', { required: true })}
             placeholder='Enter invoice date'
             value={invoice_date}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
 
         <div className='flex flex-col'>
           <label htmlFor='due_date'>Enter due date</label>
+          {errors.due_date && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='date'
-            name='due_date'
+            {...register('due_date', { required: true })}
             placeholder='Enter due date'
             value={due_date}
-            onChange={invoiceInfoChangeHandler}
+            onChange={changeHandler}
           />
         </div>
       </article>
 
       <TableForm
         description={description}
-        quantity={quantity}
-        price={price}
-        amount={amount}
-        invoiceInfoChangeHandler={invoiceInfoChangeHandler}
+        quantity={quantity as number}
+        price={price as number}
+        amount={amount as number}
+        changeHandler={changeHandler}
       />
 
       <label htmlFor='notes'>Additional notes</label>
+      {errors.notes && (
+        <span className='text-red-600 text-xs italic'>*required</span>
+      )}
       <textarea
-        name='notes'
+        {...register('notes', { required: true })}
         cols={30}
         rows={10}
         placeholder='Additional notes to the client'
         value={notes}
-        onChange={invoiceInfoChangeHandler}
+        onChange={changeHandler}
       />
 
       <button
         className='bg-blue-500 text-white font-bold py-2 px-8 rounded-shadow border-2 border-blue-500 rounded hover:bg-transparent hover:text-blue-500 transition-all duration-300'
-        onClick={previewInvoice}
+        type='submit'
       >
         Preview Invoice
       </button>
-    </div>
+    </form>
   )
 }
 
