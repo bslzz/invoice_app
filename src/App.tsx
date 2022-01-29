@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import ClientDetails from './components/ClientDetails'
-import Dates from './components/Dates'
-import Header from './components/Header'
-import MainDetails from './components/MainDetails'
-import InvoiceTable from './components/InvoiceTable'
-import Notes from './components/Notes'
-import Footer from './components/Footer'
-import InvoiceDetailsForm from './components/InvoiceDetailsForm'
-import { IInvoiceInfo, MouseEventType } from './types'
+import ClientDetails from './components/InvoicePreview/ClientDetails'
+import Dates from './components/InvoicePreview/Dates'
+import Header from './components/InvoicePreview/Header'
+import OwnerDetails from './components/InvoicePreview/OwnerDetails'
+import InvoiceTable from './components/InvoicePreview/InvoiceTable'
+import Notes from './components/InvoiceForm/Notes'
+import Footer from './components/InvoicePreview/Footer'
+import InvoiceDetailsForm from './components/InvoiceForm/InvoiceDetailsForm'
+import { IInvoiceInfo, MouseEventType } from './helpers/types'
 
 const App = () => {
   const [showInvoice, setShowInvoice] = useState(false)
@@ -48,7 +48,7 @@ const App = () => {
       {showInvoice ? (
         <div>
           <Header />
-          <MainDetails name={name} address={address} />
+          <OwnerDetails name={name} address={address} />
           <ClientDetails name={client_name} address={client_address} />
           <Dates
             invoice_number={invoice_number}

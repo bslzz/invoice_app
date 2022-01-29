@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { IProps } from '../types'
+import { IProps } from '../../helpers/types'
 
-const MainDetails: FC<IProps> = ({ name, address }) => {
+const OwnerDetails: FC<IProps> = ({ name, address }) => {
   return (
     <section className='flex flex-col items-end justify-end'>
       <h2 className='font-bold text-xl uppercase md:text-4xl'>{name}</h2>
@@ -10,4 +10,4 @@ const MainDetails: FC<IProps> = ({ name, address }) => {
   )
 }
 
-export default MainDetails
+export default OwnerDetails

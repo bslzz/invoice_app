@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { IProps } from '../types'
+import { IProps } from '../../helpers/types'
 
 const ClientDetails: FC<IProps> = ({ name, address }) => {
   return (

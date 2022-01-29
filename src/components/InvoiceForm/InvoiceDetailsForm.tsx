@@ -1,5 +1,10 @@
 import { FC } from 'react'
-import { ChangeEventType, IInvoiceInfo, MouseEventType } from '../types'
+import {
+  ChangeEventType,
+  IInvoiceInfo,
+  MouseEventType
+} from '../../helpers/types'
+
 import TableForm from './TableForm'
 
 interface Props {

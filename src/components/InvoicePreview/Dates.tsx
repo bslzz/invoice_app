@@ -1,15 +1,8 @@
 import { FC } from 'react'
-import { IDates } from '../types'
+import { IDates } from '../../helpers/types'
+import { convertDate } from '../../utils/date.utils'
 
 const Dates: FC<IDates> = ({ invoice_number, invoice_date, due_date }) => {
-  const convertDate = (val: string) =>
-    val &&
-    new Intl.DateTimeFormat('fi-FI', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    }).format(new Date(val))
-
   return (
     <article className='my-5 flex items-end justify-end'>
       <ul>
