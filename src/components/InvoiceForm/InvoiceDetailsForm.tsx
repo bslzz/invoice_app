@@ -1,7 +1,10 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { IFormValues } from '../../helpers/types'
-import { invoiceFormValues } from '../../redux/features/invoiceForm/invoiceForm.slice'
+import {
+  invoiceFormValues,
+  totalAmount
+} from '../../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch } from '../../redux/hooks'
 import { useFormValues } from '../../utils/useFormHooks'
 
@@ -31,8 +34,7 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
     notes,
     description,
     quantity,
-    price,
-    amount
+    price
   }: IFormValues = values
 
   const dispatch = useAppDispatch()
@@ -42,6 +44,10 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
     handleSubmit,
     formState: { errors }
   } = useForm<IFormValues>()
+
+  useEffect(() => {
+    dispatch(totalAmount((quantity as number) * (price as number)))
+  }, [quantity, price])
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     if (data) {
@@ -107,7 +113,7 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
           )}
           <input
             type='url'
-            {...register('website', { required: true })}
+            {...register('website')}
             placeholder='Enter your website'
             value={website}
             onChange={changeHandler}
@@ -120,7 +126,7 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
             <span className='text-red-600 text-xs italic'>*required</span>
           )}
           <input
-            type='tel'
+            type='number'
             {...register('phone', { required: true })}
             placeholder='Enter your phone number'
             value={phone as number}
@@ -195,6 +201,7 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
             <span className='text-red-600 text-xs italic'>*required</span>
           )}
           <input
+            type='number'
             {...register('invoice_number', { required: true })}
             placeholder='Enter your invoice number'
             value={invoice_number as number}
@@ -235,8 +242,9 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
         description={description}
         quantity={quantity as number}
         price={price as number}
-        amount={amount as number}
+        register={register}
         changeHandler={changeHandler}
+        errors={errors as any}
       />
 
       <label htmlFor='notes'>Additional notes</label>

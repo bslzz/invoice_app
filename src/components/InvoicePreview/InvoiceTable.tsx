@@ -2,9 +2,11 @@ import { FC } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 
 const InvoiceTable: FC = () => {
-  const { description, quantity, price, amount } = useAppSelector(
+  const { description, quantity, price } = useAppSelector(
     (state) => state.invoiceForm.data
   )
+  const amount = useAppSelector((state) => state.invoiceForm.totalAmount)
+
   return (
     <table width='100%'>
       <thead>

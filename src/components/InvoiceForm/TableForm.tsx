@@ -1,13 +1,16 @@
 import { FC, useCallback, useState } from 'react'
+import { FieldError, FormState, UseFormRegister } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
-import { ChangeEventType } from '../../helpers/types'
+import { ChangeEventType, IFormValues } from '../../helpers/types'
+import { useAppSelector } from '../../redux/hooks'
 
 interface Props {
   description: string
   quantity: number
   price: number
-  amount: number | null
   changeHandler: (e: ChangeEventType) => void
+  register: UseFormRegister<IFormValues>
+  errors: any
 }
 
 interface Ilists {
@@ -22,10 +25,13 @@ const TableForm: FC<Props> = ({
   description,
   quantity,
   price,
-  amount,
-  changeHandler
+  changeHandler,
+  register,
+  errors
 }) => {
   const [list, setList] = useState<Ilists[]>([])
+
+  const amount = useAppSelector((state) => state.invoiceForm.totalAmount)
 
   const submitForm = useCallback(() => {
     const newItems = {
@@ -46,9 +52,12 @@ const TableForm: FC<Props> = ({
       <article className='md:mt-16'>
         <div className='flex flex-col'>
           <label htmlFor='description'>Description</label>
+          {errors.description && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='text'
-            name='description'
+            {...register('description', { required: true })}
             placeholder='Description'
             value={description}
             onChange={changeHandler}
@@ -58,19 +67,25 @@ const TableForm: FC<Props> = ({
       <article className='md:grid grid-cols-3 gap-10 '>
         <div className='flex flex-col'>
           <label htmlFor='quantity'>Quantity</label>
+          {errors.quantity && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='number'
-            name='quantity'
+            {...register('quantity', { required: true })}
             placeholder='Quantity'
             value={quantity}
             onChange={changeHandler}
           />
         </div>
         <div className='flex flex-col'>
-          <label htmlFor='number'>Price</label>
+          <label htmlFor='price'>Price</label>
+          {errors.price && (
+            <span className='text-red-600 text-xs italic'>*required</span>
+          )}
           <input
             type='number'
-            name='price'
+            {...register('price', { required: true })}
             placeholder='Price'
             value={price}
             onChange={changeHandler}

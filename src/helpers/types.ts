@@ -17,11 +17,11 @@ export interface IFormValues {
   description: string
   quantity: number | null
   price: number | null
-  amount: number | null
 }
 
 export interface IInitialState {
   data: IFormValues
+  totalAmount: number | null
 }
 
 export type ChangeEventType = ChangeEvent<
