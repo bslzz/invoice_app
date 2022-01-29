@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { WritableDraft } from '@reduxjs/toolkit/node_modules/immer/dist/internal'
-import { IFormValues, IInitialState } from '../../../helpers/types'
+import { IFormValues, IInitialState, Ilists } from '../../../helpers/types'
 
 const initialState: IInitialState = {
   data: {} as IFormValues,
-  totalAmount: null
+  totalAmount: null,
+  tableLists: []
 }
 
 export const invoiceSlice = createSlice({
@@ -22,11 +23,18 @@ export const invoiceSlice = createSlice({
       action: PayloadAction<number>
     ) => {
       state.totalAmount = action.payload
+    },
+    tableLists: (
+      state: WritableDraft<IInitialState>,
+      action: PayloadAction<Ilists[]>
+    ) => {
+      state.tableLists = [...action.payload]
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { invoiceFormValues, totalAmount } = invoiceSlice.actions
+export const { invoiceFormValues, totalAmount, tableLists } =
+  invoiceSlice.actions
 
 export default invoiceSlice.reducer

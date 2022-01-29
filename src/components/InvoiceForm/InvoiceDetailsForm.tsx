@@ -47,7 +47,7 @@ const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
 
   useEffect(() => {
     dispatch(totalAmount((quantity as number) * (price as number)))
-  }, [quantity, price])
+  }, [quantity, price, dispatch])
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     if (data) {

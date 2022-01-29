@@ -19,9 +19,18 @@ export interface IFormValues {
   price: number | null
 }
 
+export interface Ilists {
+  id: string
+  description: string
+  quantity: number
+  price: number
+  amount: number | null
+}
+
 export interface IInitialState {
   data: IFormValues
   totalAmount: number | null
+  tableLists: Ilists[]
 }
 
 export type ChangeEventType = ChangeEvent<
