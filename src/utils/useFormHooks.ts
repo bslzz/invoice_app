@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChangeEventType } from '../helpers/types'
 
-export const useFormValues = <T>(initialState: T) => {
+export const useFormValues = <T extends object>(initialState: T) => {
   const [values, setValues] = useState<T>(initialState)
 
   const changeHandler = (e: ChangeEventType) => {

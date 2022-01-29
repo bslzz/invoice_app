@@ -1,20 +1,15 @@
 import { FC, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { IFormValues } from '../../helpers/types'
+import { IFormValues, ISetShow } from '../../helpers/types'
 import {
   invoiceFormValues,
   totalAmount
 } from '../../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch } from '../../redux/hooks'
 import { useFormValues } from '../../utils/useFormHooks'
-
 import TableForm from './TableForm'
 
-interface Props {
-  setShowInvoice: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const InvoiceDetailsForm: FC<Props> = ({ setShowInvoice }) => {
+const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
   const { values, changeHandler } = useFormValues<IFormValues>(
     {} as IFormValues
   )

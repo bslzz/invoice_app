@@ -1,4 +1,4 @@
-export const convertDate = (val: string) =>
+export const convertDate = (val: string): string =>
   val &&
   new Intl.DateTimeFormat('fi-FI', {
     year: 'numeric',

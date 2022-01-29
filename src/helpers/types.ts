@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react'
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from 'react'
 
 export interface IFormValues {
   name: string
@@ -38,3 +38,7 @@ export type ChangeEventType = ChangeEvent<
 >
 
 export type MouseEventType = MouseEvent<HTMLButtonElement>
+
+export interface ISetShow {
+  setShowInvoice: React.Dispatch<React.SetStateAction<boolean>>
+}
