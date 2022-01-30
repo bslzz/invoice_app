@@ -29,7 +29,7 @@ const TableForm: FC<Props> = ({
   const [editable, setEditable] = useState<boolean>(false)
 
   const amount = useAppSelector((state) => state.invoiceForm.totalAmount)
-  const data = useAppSelector((state) => state.invoiceForm.data)
+  // const data = useAppSelector((state) => state.invoiceForm.data)
 
   const addItemHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

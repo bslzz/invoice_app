@@ -13,11 +13,15 @@ const InvoiceDetailsTable = () => {
   const dispatch = useAppDispatch()
   const [editable, setEditable] = useState<boolean>(false)
 
+  console.log('editable', editable)
+
   const lists = useAppSelector((state) => state.invoiceForm.tableLists)
   const totalAmt = useAppSelector((state) => state.invoiceForm.totalSum)
   const showTableActions = useAppSelector(
     (state) => state.invoiceForm.showTableActions
   )
+
+  console.log('showTableActions', showTableActions)
 
   const deleteInvoiceRow = (id: string) => {
     const newLists = lists.filter((list) => list.id !== id)
@@ -59,7 +63,7 @@ const InvoiceDetailsTable = () => {
         {lists.map(
           ({ id, description, quantity, price, amount }: Ilists, index) => (
             <tbody key={id} className={index % 2 ? 'bg-gray-100' : ''}>
-              <tr>
+              <tr className='h-10'>
                 <td>{description}</td>
                 <td>{quantity}</td>
                 <td>{price}</td>

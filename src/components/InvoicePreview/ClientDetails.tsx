@@ -6,7 +6,7 @@ const ClientDetails: FC = () => {
 
   return (
     <section className='mt-5'>
-      <h2 className='text-xl uppercase'>{name}</h2>
+      <h2 className='text-xl uppercase font-bold'>{name}</h2>
       <p>{address}</p>
     </section>
   )

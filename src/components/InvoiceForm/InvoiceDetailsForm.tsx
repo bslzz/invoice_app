@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { IFormValues, ISetShow } from '../../helpers/types'
+import { IFormValues } from '../../helpers/types'
 import {
   invoiceFormValues,
   showTableActions,
@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../redux/hooks'
 import { useFormValues } from '../../utils/useFormHooks'
 import TableForm from './TableForm'
 
-const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
+const InvoiceDetailsForm: FC = () => {
   const { values, changeHandler } = useFormValues<IFormValues>(
     {} as IFormValues
   )
@@ -49,14 +49,14 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     if (data) {
       dispatch(invoiceFormValues(data))
-      setShowInvoice(true)
+      // setShowInvoice(true)
       dispatch(showTableActions(false))
     }
   }
 
   return (
     <form
-      className='flex flex-col justify-center'
+      className='flex flex-col justify-center bg-white p-5 rounded shadow-xl'
       onSubmit={handleSubmit(onSubmit)}
     >
       <article className='md:grid grid-cols-2 gap-10'>
@@ -194,7 +194,7 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
 
       <article className='md:grid grid-cols-3 gap-10'>
         <div className='flex flex-col'>
-          <label htmlFor='invoice_number'>Enter your invoice number</label>
+          <label htmlFor='invoice_number'>Invoice number</label>
           {errors.invoice_number && (
             <span className='text-red-600 text-xs italic'>*required</span>
           )}
@@ -208,7 +208,7 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
         </div>
 
         <div className='flex flex-col'>
-          <label htmlFor='invoice_date'>Enter invoice date</label>
+          <label htmlFor='invoice_date'>Invoice date</label>
           {errors.address && (
             <span className='text-red-600 text-xs italic'>*required</span>
           )}
@@ -222,7 +222,7 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
         </div>
 
         <div className='flex flex-col'>
-          <label htmlFor='due_date'>Enter due date</label>
+          <label htmlFor='due_date'>Due date</label>
           {errors.due_date && (
             <span className='text-red-600 text-xs italic'>*required</span>
           )}

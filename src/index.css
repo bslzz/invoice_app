@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400&family=Roboto+Mono&display=swap');
+
+:root {
+  --background-color: #f1f1f1;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #f1f1f1;
+  background-color: var(--background-color);
+  font-family: 'Karla', sans-serif;
 }
 label {
   margin-bottom: 0.2rem;
@@ -9,8 +22,8 @@ label {
 
 input,
 textarea {
-  background-color: #f1f1f1;
-  padding: 0.3rem 0.5rem;
+  background-color: var(--background-color);
+  padding: 0.3rem;
   border-radius: 0.2rem;
   margin-bottom: 2rem;
   color: #1d1d1d;
@@ -22,4 +35,11 @@ button {
 
 .footer li {
   margin: 0.5rem 0.2rem;
+}
+
+.invoice_preview {
+  transform: scale(0.8);
+  position: sticky;
+  top: 0;
+  right: 0;
 }
