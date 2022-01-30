@@ -1,9 +1,11 @@
-import { FC, MouseEvent, useEffect, useState } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
-import { ChangeEventType, IFormValues, Ilists } from '../../helpers/types'
+import { ChangeEventType, IFormValues } from '../../helpers/types'
 import { tableLists } from '../../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+
+import InvoiceDetailsTable from '../common/InvoiceDetails.table'
 
 interface Props {
   description: string
@@ -23,9 +25,11 @@ const TableForm: FC<Props> = ({
   errors
 }) => {
   const dispatch = useAppDispatch()
-  const [lists, setLists] = useState<Ilists[]>([])
+  const lists = useAppSelector((state) => state.invoiceForm.tableLists)
+  const [editable, setEditable] = useState<boolean>(false)
 
   const amount = useAppSelector((state) => state.invoiceForm.totalAmount)
+  const data = useAppSelector((state) => state.invoiceForm.data)
 
   const addItemHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -37,13 +41,10 @@ const TableForm: FC<Props> = ({
         price,
         amount
       }
-      setLists([...lists, newItems])
+      dispatch(tableLists([...lists, newItems]))
+      setEditable(false)
     }
   }
-
-  useEffect(() => {
-    dispatch(tableLists(lists))
-  }, [lists, dispatch])
 
   return (
     <>
@@ -101,33 +102,10 @@ const TableForm: FC<Props> = ({
           className='my-5 bg-blue-500 text-white font-bold py-2 px-8 rounded-shadow border-2 border-blue-500 rounded hover:bg-transparent hover:text-blue-500 transition-all duration-300'
           onClick={addItemHandler}
         >
-          Add New Item
+          {editable ? 'Edit Item' : 'Add New Item'}
         </button>
       </div>
-      {lists.length > 0 && (
-        <table width='100%' className='mb-10'>
-          <thead>
-            <tr className='bg-gray-100'>
-              <td className='font-bold'>Description</td>
-              <td className='font-bold'>Quantity</td>
-              <td className='font-bold'>Price</td>
-              <td className='font-bold'>Amount</td>
-            </tr>
-          </thead>
-          {lists.map(
-            ({ id, description, quantity, price, amount }: Ilists, index) => (
-              <tbody key={id} className={index % 2 ? 'bg-gray-100' : ''}>
-                <tr>
-                  <td>{description}</td>
-                  <td>{quantity}</td>
-                  <td>{price}</td>
-                  <td>{amount ? amount.toFixed(2) : null}</td>
-                </tr>
-              </tbody>
-            )
-          )}
-        </table>
-      )}
+      {lists.length > 0 && <InvoiceDetailsTable />}
     </>
   )
 }

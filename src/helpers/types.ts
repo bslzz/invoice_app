@@ -31,6 +31,8 @@ export interface IInitialState {
   data: IFormValues
   totalAmount: number | null
   tableLists: Ilists[]
+  totalSum: number | null
+  showTableActions: boolean
 }
 
 export type ChangeEventType = ChangeEvent<

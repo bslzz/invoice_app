@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { IFormValues, ISetShow } from '../../helpers/types'
 import {
   invoiceFormValues,
+  showTableActions,
   totalAmount
 } from '../../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch } from '../../redux/hooks'
@@ -13,6 +14,7 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
   const { values, changeHandler } = useFormValues<IFormValues>(
     {} as IFormValues
   )
+
   const {
     name,
     address,
@@ -48,6 +50,7 @@ const InvoiceDetailsForm: FC<ISetShow> = ({ setShowInvoice }) => {
     if (data) {
       dispatch(invoiceFormValues(data))
       setShowInvoice(true)
+      dispatch(showTableActions(false))
     }
   }
 
