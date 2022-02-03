@@ -105,7 +105,7 @@ const TableForm: FC<Props> = ({
           {editable ? 'Edit Item' : 'Add New Item'}
         </button>
       </div>
-      {lists.length > 0 && <InvoiceDetailsTable />}
+      {lists.length > 0 && <InvoiceDetailsTable show={true} />}
     </>
   )
 }

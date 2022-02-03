@@ -6,8 +6,7 @@ const initialState: IInitialState = {
   data: {} as IFormValues,
   totalAmount: null,
   tableLists: [],
-  totalSum: null,
-  showTableActions: true
+  totalSum: null
 }
 
 export const invoiceSlice = createSlice({
@@ -52,12 +51,6 @@ export const invoiceSlice = createSlice({
       action: PayloadAction<number>
     ) => {
       state.totalSum = action.payload
-    },
-    showTableActions: (
-      state: WritableDraft<IInitialState>,
-      action: PayloadAction<boolean>
-    ) => {
-      state.showTableActions = action.payload
     }
   }
 })
@@ -68,8 +61,7 @@ export const {
   totalAmount,
   tableLists,
   editTableLists,
-  totalSum,
-  showTableActions
+  totalSum
 } = invoiceSlice.actions
 
 export default invoiceSlice.reducer

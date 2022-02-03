@@ -1,11 +1,7 @@
 import { FC, useEffect } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { IFormValues } from '../../helpers/types'
-import {
-  invoiceFormValues,
-  showTableActions,
-  totalAmount
-} from '../../redux/features/invoiceForm/invoiceForm.slice'
+import { totalAmount } from '../../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch } from '../../redux/hooks'
 import { useFormValues } from '../../utils/useFormHooks'
 import TableForm from './TableForm'
@@ -38,7 +34,6 @@ const InvoiceDetailsForm: FC = () => {
 
   const {
     register,
-    handleSubmit,
     formState: { errors }
   } = useForm<IFormValues>()
 
@@ -46,19 +41,8 @@ const InvoiceDetailsForm: FC = () => {
     dispatch(totalAmount((quantity as number) * (price as number)))
   }, [quantity, price, dispatch])
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    if (data) {
-      dispatch(invoiceFormValues(data))
-      // setShowInvoice(true)
-      dispatch(showTableActions(false))
-    }
-  }
-
   return (
-    <form
-      className='flex flex-col justify-center bg-white p-5 rounded shadow-xl'
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className='flex flex-col justify-center bg-white p-5 rounded shadow-xl'>
       <article className='md:grid grid-cols-2 gap-10'>
         <div className='flex flex-col'>
           <label htmlFor='name'>Enter your name</label>
@@ -257,13 +241,6 @@ const InvoiceDetailsForm: FC = () => {
         value={notes}
         onChange={changeHandler}
       />
-
-      <button
-        className='bg-blue-500 text-white font-bold py-2 px-8 rounded-shadow border-2 border-blue-500 rounded hover:bg-transparent hover:text-blue-500 transition-all duration-300'
-        type='submit'
-      >
-        Preview Invoice
-      </button>
     </form>
   )
 }

@@ -7,21 +7,18 @@ import {
   tableLists,
   totalSum
 } from '../../redux/features/invoiceForm/invoiceForm.slice'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-const InvoiceDetailsTable = () => {
+interface Props {
+  show: boolean
+}
+
+const InvoiceDetailsTable: FC<Props> = ({ show }) => {
   const dispatch = useAppDispatch()
   const [editable, setEditable] = useState<boolean>(false)
 
-  console.log('editable', editable)
-
   const lists = useAppSelector((state) => state.invoiceForm.tableLists)
   const totalAmt = useAppSelector((state) => state.invoiceForm.totalSum)
-  const showTableActions = useAppSelector(
-    (state) => state.invoiceForm.showTableActions
-  )
-
-  console.log('showTableActions', showTableActions)
 
   const deleteInvoiceRow = (id: string) => {
     const newLists = lists.filter((list) => list.id !== id)
@@ -57,7 +54,6 @@ const InvoiceDetailsTable = () => {
             <td className='font-bold'>Quantity</td>
             <td className='font-bold'>Price</td>
             <td className='font-bold'>Amount</td>
-            {showTableActions && <td className='font-bold'>Actions</td>}
           </tr>
         </thead>
         {lists.map(
@@ -68,13 +64,13 @@ const InvoiceDetailsTable = () => {
                 <td>{quantity}</td>
                 <td>{price}</td>
                 <td>{amount ? amount.toFixed(2) : null}</td>
-                {showTableActions && (
+                {show && (
                   <td>
-                    <button onClick={() => deleteInvoiceRow(id)}>
-                      <MdDelete className='text-red-400 hover:text-red-500 font-bold text-xl mr-5' />
-                    </button>
                     <button onClick={() => editInvoiceRow(id)}>
-                      <FiEdit className='text-blue-400 hover:text-blue-600 font-bold text-lg' />
+                      <FiEdit className='text-blue-400 hover:text-blue-600 font-bold text-lg mr-5' />
+                    </button>
+                    <button onClick={() => deleteInvoiceRow(id)}>
+                      <MdDelete className='text-red-400 hover:text-red-500 font-bold text-xl' />
                     </button>
                   </td>
                 )}

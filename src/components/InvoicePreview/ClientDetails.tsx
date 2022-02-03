@@ -2,12 +2,14 @@ import { FC } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 
 const ClientDetails: FC = () => {
-  const { name, address } = useAppSelector((state) => state.invoiceForm.data)
+  const { client_name, client_address } = useAppSelector(
+    (state) => state.invoiceForm.data
+  )
 
   return (
     <section className='mt-5'>
-      <h2 className='text-xl uppercase font-bold'>{name}</h2>
-      <p>{address}</p>
+      <h2 className='text-xl uppercase font-bold'>{client_name}</h2>
+      <p>{client_address}</p>
     </section>
   )
 }
