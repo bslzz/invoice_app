@@ -32,6 +32,8 @@ export interface IInitialState {
   totalAmount: number | null
   tableLists: Ilists[]
   totalSum: number | null
+  editTableLists: Ilists
+  edit: boolean
 }
 
 export type ChangeEventType = ChangeEvent<

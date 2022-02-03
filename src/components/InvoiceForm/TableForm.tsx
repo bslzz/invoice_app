@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react'
+import { FC, MouseEvent } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import { ChangeEventType, IFormValues } from '../../helpers/types'
@@ -26,14 +26,16 @@ const TableForm: FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch()
   const lists = useAppSelector((state) => state.invoiceForm.tableLists)
-  const [editable, setEditable] = useState<boolean>(false)
-
   const amount = useAppSelector((state) => state.invoiceForm.totalAmount)
-  // const data = useAppSelector((state) => state.invoiceForm.data)
+  const edit = useAppSelector((state) => state.invoiceForm.edit)
+  const editedItem = useAppSelector((state) => state.invoiceForm.editTableLists)
 
   const addItemHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (description && quantity && price) {
+
+    if (!description || !quantity || !price) {
+      alert('Please fill all the fields')
+    } else {
       const newItems = {
         id: uuidv4(),
         description,
@@ -42,7 +44,6 @@ const TableForm: FC<Props> = ({
         amount
       }
       dispatch(tableLists([...lists, newItems]))
-      setEditable(false)
     }
   }
 
@@ -59,7 +60,7 @@ const TableForm: FC<Props> = ({
               type='text'
               {...register('description', { required: true })}
               placeholder='Description'
-              value={description}
+              value={edit ? editedItem.description : description}
               onChange={changeHandler}
             />
           </div>
@@ -74,7 +75,7 @@ const TableForm: FC<Props> = ({
               type='number'
               {...register('quantity', { required: true })}
               placeholder='Quantity'
-              value={quantity}
+              value={edit ? editedItem.quantity : quantity}
               onChange={changeHandler}
             />
           </div>
@@ -87,14 +88,14 @@ const TableForm: FC<Props> = ({
               type='number'
               {...register('price', { required: true })}
               placeholder='Price'
-              value={price}
+              value={edit ? editedItem.price : price}
               onChange={changeHandler}
             />
           </div>
           <div className='flex flex-col'>
             <label htmlFor='amount'>Amount</label>
             <p className={amount ? 'p-1 bg-gray-100' : 'p-4 bg-gray-100'}>
-              {amount ? amount.toFixed(2) : null}
+              {edit ? editedItem.amount : amount ? amount.toFixed(2) : null}
             </p>
           </div>
         </article>
@@ -102,7 +103,7 @@ const TableForm: FC<Props> = ({
           className='my-5 bg-blue-500 text-white font-bold py-2 px-8 rounded-shadow border-2 border-blue-500 rounded hover:bg-transparent hover:text-blue-500 transition-all duration-300'
           onClick={addItemHandler}
         >
-          {editable ? 'Edit Item' : 'Add New Item'}
+          {edit ? 'Edit Item' : 'Add New Item'}
         </button>
       </div>
       {lists.length > 0 && <InvoiceDetailsTable show={true} />}

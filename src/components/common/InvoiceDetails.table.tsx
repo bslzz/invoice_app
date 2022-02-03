@@ -7,7 +7,7 @@ import {
   tableLists,
   totalSum
 } from '../../redux/features/invoiceForm/invoiceForm.slice'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 
 interface Props {
   show: boolean
@@ -15,7 +15,6 @@ interface Props {
 
 const InvoiceDetailsTable: FC<Props> = ({ show }) => {
   const dispatch = useAppDispatch()
-  const [editable, setEditable] = useState<boolean>(false)
 
   const lists = useAppSelector((state) => state.invoiceForm.tableLists)
   const totalAmt = useAppSelector((state) => state.invoiceForm.totalSum)
@@ -25,10 +24,10 @@ const InvoiceDetailsTable: FC<Props> = ({ show }) => {
     dispatch(tableLists(newLists))
   }
   const editInvoiceRow = (id: string) => {
+    const newLists = lists.filter((list) => list.id !== id)
+    dispatch(tableLists(newLists))
     const editItem = lists.find((list) => list.id === id)
-    // setLists(lists.filter((list) => list.id !== id))
     if (editItem) {
-      setEditable(true)
       dispatch(editTableLists(editItem))
     }
   }

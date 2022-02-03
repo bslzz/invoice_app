@@ -6,7 +6,9 @@ const initialState: IInitialState = {
   data: {} as IFormValues,
   totalAmount: null,
   tableLists: [],
-  totalSum: null
+  totalSum: null,
+  editTableLists: {} as Ilists,
+  edit: false
 }
 
 export const invoiceSlice = createSlice({
@@ -18,6 +20,7 @@ export const invoiceSlice = createSlice({
       action: PayloadAction<IFormValues>
     ) => {
       state.data = action.payload
+      state.edit = false
     },
     totalAmount: (
       state: WritableDraft<IInitialState>,
@@ -30,21 +33,15 @@ export const invoiceSlice = createSlice({
       action: PayloadAction<Ilists[]>
     ) => {
       state.tableLists = [...action.payload]
+      state.edit = false
     },
 
     editTableLists: (
       state: WritableDraft<IInitialState>,
-      action: PayloadAction<any>
+      action: PayloadAction<Ilists>
     ) => {
-      const { description, quantity, price, amount } = action.payload
-
-      state.data = {
-        ...state.data,
-        description,
-        quantity,
-        price
-      }
-      state.totalAmount = amount
+      state.editTableLists = action.payload
+      state.edit = true
     },
     totalSum: (
       state: WritableDraft<IInitialState>,

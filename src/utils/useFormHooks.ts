@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { ChangeEventType } from '../helpers/types'
+import { ChangeEventType, IFormValues } from '../helpers/types'
 import { invoiceFormValues } from '../redux/features/invoiceForm/invoiceForm.slice'
 import { useAppDispatch } from '../redux/hooks'
 
 export const useFormValues = <T extends object>(initialState: T) => {
   const dispatch = useAppDispatch()
-  const [values, setValues] = useState<any>(initialState)
+  const [values, setValues] = useState<T>(initialState)
 
   const changeHandler = (e: ChangeEventType) => {
     const { name, value } = e.target
@@ -13,7 +13,7 @@ export const useFormValues = <T extends object>(initialState: T) => {
   }
 
   useEffect(() => {
-    dispatch(invoiceFormValues(values))
+    dispatch(invoiceFormValues(values as IFormValues))
   }, [dispatch, values])
 
   return { values, changeHandler }
