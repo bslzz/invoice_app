@@ -12,6 +12,8 @@ export const useFormValues = <T extends object>(initialState: T) => {
     setValues({ ...values, [name]: value })
   }
 
+  console.log('values', values)
+
   useEffect(() => {
     dispatch(invoiceFormValues(values as IFormValues))
   }, [dispatch, values])

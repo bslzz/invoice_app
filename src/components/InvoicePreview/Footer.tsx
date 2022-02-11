@@ -2,16 +2,16 @@ import { FC } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 
 const Footer: FC = () => {
-  const { name, email, website, phone, account_number, bank } = useAppSelector(
+  const { email, website, phone, account_number, bank } = useAppSelector(
     (state) => state.invoiceForm.data
   )
   return (
     <footer className='footer border-t-2 border-gray-300 pt-5'>
       <ul className='flex flex-wrap items-center justify-center'>
-        <li>
+        {/* <li>
           <span className='font-bold'>Name:</span>
           {name}
-        </li>
+        </li> */}
         <li>
           <span className='font-bold'>Email:</span>
           {email}
@@ -24,10 +24,10 @@ const Footer: FC = () => {
           <span className='font-bold'>Bank:</span>
           {bank}
         </li>
-        <li>
+        {/* <li>
           <span className='font-bold'>Account holder:</span>
           {name}
-        </li>
+        </li> */}
         <li>
           <span className='font-bold'>Account Number:</span>
           {account_number}

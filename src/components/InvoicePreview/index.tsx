@@ -5,7 +5,7 @@ import Dates from './Dates'
 import Footer from './Footer'
 import Header from './Header'
 import Notes from './Notes'
-import OwnerDetails from './OwnerDetails'
+import SenderDetails from './SenderDetails'
 import ReactToPrint from 'react-to-print'
 
 const InvoicePreview: FC = () => {
@@ -24,7 +24,7 @@ const InvoicePreview: FC = () => {
 
       <div ref={componentRef} className='p-5'>
         <Header />
-        <OwnerDetails />
+        <SenderDetails />
         <ClientDetails />
         <Dates />
         <InvoiceDetailsTable show={false} />

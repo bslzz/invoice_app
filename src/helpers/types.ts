@@ -1,15 +1,24 @@
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from 'react'
 
 export interface IFormValues {
-  name: string
-  address: string
+  sender_firstName: string
+  sender_lastName: string
+  sender_address: string
+  sender_postCode: number
+  sender_city: string
+  sender_country: string
+  sender_companyName: string
   email: string
   phone: number | null
   bank: string
   account_number: string
   website: string
-  client_name: string
-  client_address: string
+  receiver_firstName: string
+  receiver_lastName: string
+  receiver_address: string
+  receiver_postCode: number
+  receiver_city: string
+  receiver_country: string
   invoice_number: number | null
   invoice_date: string
   due_date: string
@@ -17,6 +26,7 @@ export interface IFormValues {
   description: string
   quantity: number | null
   price: number | null
+  customerType: 'person' | 'company'
 }
 
 export interface Ilists {
